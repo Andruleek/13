@@ -1,0 +1,29 @@
+Generic single-database configuration.
+
+# README
+Contacts API
+===========
+
+This is a simple API for managing contacts. It includes features for creating, retrieving, and verifying contacts.
+
+**Endpoints**
+
+- **POST /contacts**: Creates a new contact for a user.
+- **GET /contacts**: Retrieves all contacts for a user.
+
+**Verification**
+
+- **GET /contacts?email=<email>**: Verifies if a user exists.
+
+**Contact Limit**
+
+- Each user has a contact limit of 5.
+- If a user exceeds their contact limit, they cannot create new contacts until their limit is reset.
+
+**Usage**
+
+- Run the application using `python main.py`.
+- Use a tool like `curl` to test the API endpoints.
+- For example, to create a new contact for a user, use `curl -X POST -H "Content-Type: application/json" -d '{"email": "user@example.com", "contact": {"name": "John Doe", "phone": "123-456-7890", "email": "john.doe@example.com"}}' http://localhost:5000/contacts`.
+- To retrieve all contacts for a user, use `curl -X GET http://localhost:5000/contacts?email=user@example.com`.
+- To verify if a user exists, use `curl -X GET http://localhost:5000/contacts?email=user@example.com`.
