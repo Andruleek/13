@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from src.database.db import get_db
 from starlette.middleware.cors import CORSMiddleware
 from src.conf.config import CORS_RESOURCES
+from flask_cors import CORS
 
 app = FastAPI()
 
@@ -37,4 +38,23 @@ async def healthchecker(db: AsyncSession = Depends(get_db)):
         print(e)
         raise HTTPException(status_code=500, detail="Error connecting to the database")
 
+
+from cloudinary import Cloudinary
+from cloudinary.uploader import upload
+
+cloudinary = Cloudinary(
+    'your_cloudinary_api_key',
+    'your_cloudinary_api_secret'
+)
+
+@app.route('/update_avatar', methods=['POST'])
+def update_avatar():
+    avatar = request.files['avatar']
+    avatar_url = upload(avatar).get('secure_url')
+    # Оновіть аватар користувача в базі даних
+    return jsonify({'avatar_url': avatar_url})
+
 app.run(debug=True)
+
+app = Flask(__name__)
+CORS(app)

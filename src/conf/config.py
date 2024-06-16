@@ -11,6 +11,7 @@ config = Config
 
 CONTACT_LIMIT = 5
 
+
 CORS_RESOURCES = {
     r"/*": {
         "origins": ["*"],
@@ -33,3 +34,6 @@ cloudinary.config(
     api_key="your_api_key",
     api_secret="your_api_secret"
 )
+
+CLOUDINARY_API_KEY = 'your_cloudinary_api_key'
+CLOUDINARY_API_SECRET = 'your_cloudinary_api_secret'

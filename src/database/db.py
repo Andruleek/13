@@ -51,3 +51,14 @@ sessionmanager = DatabaseSessionManager(SQLALCHEMY_DATABASE_URL)
 async def get_db():
     async with sessionmanager.session() as session:
         yield session
+        
+        
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from database.models import User
+
+engine = create_engine('sqlite:///contacts.db')
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()

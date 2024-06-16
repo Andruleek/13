@@ -112,6 +112,31 @@ async def search(first_name, last_name, email, skip, limit, db):
         print(f"Ошибка при выполнении запроса к базе данных: {e}")
         return []
 
+from database.models import User
+
+def verify_email(email):
+    user = session.query(User).filter_by(email=email).first()
+    if user:
+        return True
+    return False
+
+
+from datetime import datetime, timedelta
+from collections import defaultdict
+
+class ContactRepository:
+    def __init__(self):
+        self.contacts = defaultdict(list)
+        self.last_request_time = datetime.min
+
+    def get_contacts(self, user_id):
+        if datetime.now() - self.last_request_time < timedelta(seconds=1):
+            return []
+        self.last_request_time = datetime.now()
+        return self.contacts[user_id]
+
+    def add_contact(self, user_id, contact):
+        self.contacts[user_id].append(contact)
 
 
 
